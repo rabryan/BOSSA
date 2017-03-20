@@ -269,6 +269,12 @@ FlashFactory::create(Samba& samba, uint32_t chipId)
                               ATSAML21E18B_FLASH_PLANES, ATSAML21E18B_FLASH_LOCK_REGIONS,
                               ATSAML21E18B_BUFFER_ADDR, ATSAML21E18B_STACK_ADDR, ATSAML21E18B_NVMCTRL_BASE, ATSAML_BOOTLOADER_SIZE, /*canBrownout*/true);
         break ;
+    
+    case ATSAML21G18B_CHIPID:
+        flash = new NvmFlash( samba, ATSAML21G18B_NAME, ATSAML21G18B_FLASH_BASE, ATSAML21G18B_FLASH_PAGES, ATSAML21G18B_FLASH_PAGE_SIZE,
+                              ATSAML21G18B_FLASH_PLANES, ATSAML21G18B_FLASH_LOCK_REGIONS,
+                              ATSAML21G18B_BUFFER_ADDR, ATSAML21G18B_STACK_ADDR, ATSAML21G18B_NVMCTRL_BASE, ATSAML_BOOTLOADER_SIZE, /*canBrownout*/true);
+        break ;
 
     default:
         flash = NULL;
