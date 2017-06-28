@@ -50,6 +50,8 @@ using namespace std;
 #define TIMEOUT_NORMAL  1000
 #define TIMEOUT_LONG    5000
 
+#define USB_FLUSH_HACK 0
+
 #define min(a, b)   ((a) < (b) ? (a) : (b))
 
 Samba::Samba() :
@@ -179,8 +181,10 @@ Samba::writeByte(uint32_t addr, uint8_t value)
     // USB drivers often do write combining which can put them together
     // in the same USB data packet.  To avoid this, we call the serial
     // port object's flush method before writing the data.
+#if USB_FLUSH_HACK
     if (_isUsb)
         _port->flush();
+#endif
 }
 
 uint8_t
@@ -222,8 +226,10 @@ Samba::writeWord(uint32_t addr, uint32_t value)
     // USB drivers often do write combining which can put them together
     // in the same USB data packet.  To avoid this, we call the serial
     // port object's flush method before writing the data.
+#if USB_FLUSH_HACK
     if (_isUsb)
         _port->flush();
+#endif
 }
 
 
@@ -488,7 +494,9 @@ Samba::write(uint32_t addr, const uint8_t* buffer, int size)
     // port object's flush method before writing the data.
     if (_isUsb)
     {
+#if USB_FLUSH_HACK
         _port->flush();
+#endif
         writeBinary(buffer, size);
     }
     else
@@ -512,8 +520,10 @@ Samba::go(uint32_t addr)
     // The SAM firmware can get confused if another command is
     // received in the same USB data packet as the go command
     // so we flush after writing the command over USB.
+#if USB_FLUSH_HACK
     if (_isUsb)
         _port->flush();
+#endif
 }
 
 std::string
