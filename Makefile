@@ -89,6 +89,9 @@ MACHINE:=$(shell uname -m)
 
 install: strip
 	tar cvzf $(BINDIR)/bossa-$(MACHINE)-$(VERSION).tgz -C $(BINDIR) bossa$(EXE) bossac$(EXE) bossash$(EXE)
+	cp bin/bossa /usr/bin/
+	cp bin/bossac /usr/bin/
+	cp bin/bossash /usr/bin/
 endif
 
 #
